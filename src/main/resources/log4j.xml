@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!--add by fqh-->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+	<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="taskExcute.log" />
+		<param name="Append" value="false" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{MM-dd HH:mm:ss SSS}[%p]%l%m%n" />
+		</layout>
+	</appender>
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="DEBUG" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{MM-dd HH:mm:ss SSS}[%p]%l%m%n" />
+		</layout>
+	</appender>
+	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="CONSOLE" />
+	</appender>
+	<category name="org.apache">
+		<priority value="INFO" />
+	</category>
+	<category name="org.springframework">
+		<priority value="INFO" />
+	</category>
+	<category name="com.opensymphony">
+		<priority value="INFO" />
+	</category>
+	<category name="com.mchange">
+		<priority value="INFO" />
+	</category>
+	<category name="freemarker">
+		<priority value="INFO" />
+	</category>
+	<category name="com.notice">
+		<priority value="DEBUG" />
+	</category>
+	<category name="SapDS">
+		<priority value="FATAL" />
+	</category>
+	<root>
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+</log4j:configuration>

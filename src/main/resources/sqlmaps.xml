@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+                              "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true" lazyLoadingEnabled="true"
+	enhancementEnabled="true" errorTracingEnabled="true" maxRequests="32"
+	maxSessions="10" maxTransactions="5" useStatementNamespaces="true" />
+
+	<sqlMap resource="com/notice/model/SYS_DATA_SOURCE_SqlMap.xml" />
+	<sqlMap resource="com/notice/model/SYS_DB_LINKS_SqlMap.xml" />
+	<sqlMap resource="com/notice/model/SYS_EMAIL_SEND_HISTORY_SqlMap.xml" />
+	<sqlMap resource="com/notice/model/SYS_EMAIL_SEND_SqlMap.xml" />
+	<sqlMap resource="com/notice/model/SYS_FILE_RELATIONS_SqlMap.xml" />
+	<sqlMap resource="com/notice/model/SYS_PARAM_ALL_SqlMap.xml" />
+	<sqlMap resource="com/notice/model/SYS_TASK_ALL_SqlMap.xml" />
+	<sqlMap resource="com/notice/model/SYS_TASK_PAGE_ALL_SqlMap.xml" />
+</sqlMapConfig>

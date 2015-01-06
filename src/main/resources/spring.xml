@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-autowire="byName">
+
+	<!-- 引入属性文件 -->
+	<context:property-placeholder location="classpath:/db.properties" />
+	<!-- 自动扫描dao和service包(自动注入) -->
+	<context:component-scan base-package="com.notice.work" />
+
+	<!-- 模板工厂 template ok -->
+	<bean name="templateParseFactory" class="com.notice.template.TemplateParseFactory"
+		scope="singleton">
+		<property name="templateParseClass">
+			<map>
+				<entry key="HTML" value-ref="templateParseHtmlBean" />
+				<entry key="SQL" value-ref="templateParseSQLBean" />
+			</map>
+		</property>
+	</bean>
+	<bean name="templateParseHtmlBean" class="com.notice.template.impl.TemplateParseHtml" />
+	<bean name="templateParseSQLBean" class="com.notice.template.impl.TemplateParseSQL" />
+
+	<!-- 数据解析工厂 dateSource ok -->
+	<bean name="dateSourceParseFactory" class="com.notice.dateSource.DateSourceParseFactory"
+		scope="singleton">
+		<property name="dateSourceParseClass">
+			<map>
+				<entry key="form" value-ref="dateSourceParseFormBean" />
+				<entry key="img" value-ref="dateSourceParseImageBean" />
+				<entry key="imgdef" value-ref="dateSourceParseImgdefBean" />
+				<entry key="table" value-ref="dateSourceParseTableBean" />
+				<entry key="td" value-ref="dateSourceParseTdBean" />
+				<entry key="text" value-ref="dateSourceParseTextBean" />
+				<entry key="sql" value-ref="dateSourceParseSQLBean" />
+			</map>
+		</property>
+	</bean>
+	<bean name="dateSourceParseFormBean" class="com.notice.dateSource.impl.DateSourceParseForm" />
+	<bean name="dateSourceParseImageBean" class="com.notice.dateSource.impl.DateSourceParseImage" />
+	<bean name="dateSourceParseTableBean" class="com.notice.dateSource.impl.DateSourceParseTable" />
+	<bean name="dateSourceParseTdBean" class="com.notice.dateSource.impl.DateSourceParseTd" />
+	<bean name="dateSourceParseTextBean" class="com.notice.dateSource.impl.DateSourceParseText" />
+	<bean name="dateSourceParseImgdefBean" class="com.notice.dateSource.impl.DateSourceParseImgdef" />
+	<bean name="dateSourceParseSQLBean" class="com.notice.dateSource.impl.DateSourceParseSQL" />
+
+	<!--图表解析工厂 charts ok -->
+	<bean name="chartsFactory" class="com.notice.charts.ChartsFactory"
+		scope="singleton">
+		<property name="chartsClass">
+			<map>
+				<entry key="bar" value-ref="barChartsBean" />
+				<entry key="pie" value-ref="pieChartsBean" />
+				<entry key="line" value-ref="lineChartsBean" />
+			</map>
+		</property>
+	</bean>
+	<bean name="barChartsBean" class="com.notice.charts.BarCharts">
+		<constructor-arg index="0" value="" />
+	</bean>
+	<bean name="pieChartsBean" class="com.notice.charts.PieCharts">
+		<constructor-arg index="0" value="" />
+	</bean>
+	<bean name="lineChartsBean" class="com.notice.charts.LineCharts">
+		<constructor-arg index="0" value="" />
+	</bean>
+	
+	<!-- spring jdbc -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg><ref bean="dataSource"/></constructor-arg>  
+	</bean>
+</beans>

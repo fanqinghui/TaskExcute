@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SYS_FILE_RELATIONS">
+  <resultMap class="com.notice.model.SysFileRelations" id="sysFileRelationsResult">
+    <result column="RELATION_ID" jdbcType="DECIMAL" property="RELATION_ID" />
+    <result column="FILE_ID" jdbcType="DECIMAL" property="FILE_ID" />
+    <result column="FILE_NAME" jdbcType="VARCHAR" property="FILE_NAME" />
+    <result column="ORIGINAL_FILE_NAME" jdbcType="VARCHAR" property="ORIGINAL_FILE_NAME" />
+    <result column="SUFFIX_CODE" jdbcType="VARCHAR" property="SUFFIX_CODE" />
+    <result column="FILE_PATH" jdbcType="VARCHAR" property="FILE_PATH" />
+    <result column="FILE_SIZE" jdbcType="DECIMAL" property="FILE_SIZE" />
+    <result column="BILL_ID" jdbcType="DECIMAL" property="BILL_ID" />
+    <result column="BILL_TYPE" jdbcType="VARCHAR" property="BILL_TYPE" />
+    <result column="BILL_ATTACH_CODE" jdbcType="VARCHAR" property="BILL_ATTACHMENT_CODE" />
+    <result column="DISABLED" jdbcType="CHAR" property="DISABLED" />
+    <result column="CREATED_BY" jdbcType="DECIMAL" property="CREATED_BY" />
+    <result column="CREATION_DATE" jdbcType="DATE" property="CREATION_DATE" />
+    <result column="LAST_UPDATED_BY" jdbcType="DECIMAL" property="LAST_UPDATED_BY" />
+    <result column="LAST_UPDATE_DATE" jdbcType="DATE" property="LAST_UPDATE_DATE" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="DESCRIPTION" />
+  </resultMap>
+  <select id="getFileRelations" parameterClass="Long" resultClass="java.util.HashMap">
+		select t1.FILE_NAME as name,           
+		       t1.SUFFIX_CODE as code,         
+		       t1.FILE_PATH as url,          
+		       t1.BILL_ATTACH_CODE as type,
+		       t2.is_send_email as sendEmail       
+		  from sys_file_relations t1, sys_task_all t2
+		 where t1.BILL_ID = t2.TASK_ID
+		   and t1.disabled =0
+		   and t1.bill_id = #taskId#
+    </select>
+</sqlMap>

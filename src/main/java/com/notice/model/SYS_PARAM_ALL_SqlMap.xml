@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SYS_PARAM_ALL">
+  <resultMap class="com.notice.model.SysParamAll" id="abatorgenerated_SysParamAllResult">
+    <result column="PARAM_ID" jdbcType="DECIMAL" property="PARAM_ID" />
+    <result column="TASK_ID" jdbcType="DECIMAL" property="TASK_ID" />
+    <result column="PARAM_NAME" jdbcType="VARCHAR" property="PARAM_NAME" />
+    <result column="PARAM_VALUE" jdbcType="VARCHAR" property="PARAM_VALUE" />
+    <result column="ENABLE_DATE" jdbcType="DATE" property="ENABLE_DATE" />
+    <result column="DISABLE_DATE" jdbcType="DATE" property="DISABLE_DATE" />
+    <result column="CREATED_DATE" jdbcType="DATE" property="CREATED_DATE" />
+    <result column="CREATED_BY" jdbcType="DECIMAL" property="CREATED_BY" />
+    <result column="LAST_UPDATE_DATE" jdbcType="DATE" property="LAST_UPDATED_DATE" />
+    <result column="LAST_UPDATED_BY" jdbcType="DECIMAL" property="LAST_UPDATED_BY" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="DESCRIPTION" />
+  </resultMap>
+  <resultMap id="get-param-map" class="java.util.HashMap">  
+        <result property="key" column="PARAM_NAME"/>  
+        <result property="value" column="PARAM_VALUE"/>  
+</resultMap>  
+  <select id="getParamAll" resultMap="get-param-map" parameterClass="Long">
+	  	select PARAM_NAME, PARAM_VALUE
+	  from sys_param_all t
+	 where (DISABLE_DATE is null or DISABLE_DATE > sysdate)
+	   and t.task_id =#taskId#
+  </select>
+</sqlMap>

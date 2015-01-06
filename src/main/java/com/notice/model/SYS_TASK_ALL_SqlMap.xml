@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SYS_TASK_ALL">
+  <resultMap class="com.notice.model.SysTaskAll" id="abatorgenerated_SysTaskAllResult">
+    <result column="TASK_ID" jdbcType="DECIMAL" property="TASK_ID" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="TASK_NAME" />
+    <!-- <result column="TASK_EXE_CYCLE" jdbcType="DECIMAL" property="TASK_EXE_CYCLE" />
+    <result column="LAST_EXE_TIME" jdbcType="DATE" property="LAST_EXE_TIME" /> -->
+    <result column="IS_SEND_EMAIL" jdbcType="DECIMAL" property="IS_SEND_EMAIL" />
+    <result column="EMAIL_TITLE" jdbcType="VARCHAR" property="EMAIL_TITLE" />
+    <result column="ENABLE_DATE" jdbcType="DATE" property="ENABLE_DATE" />
+    <result column="DISABLE_DATE" jdbcType="DATE" property="DISABLE_DATE" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="DESCRIPTION" />
+    <result column="ATTRIBUTE1" jdbcType="VARCHAR" property="ATTRIBUTE1" />
+    <result column="ATTRIBUTE2" jdbcType="VARCHAR" property="ATTRIBUTE2" />
+    <result column="ATTRIBUTE3" jdbcType="VARCHAR" property="ATTRIBUTE3" />
+    <result column="ATTRIBUTE4" jdbcType="VARCHAR" property="ATTRIBUTE4" />
+    <result column="ATTRIBUTE5" jdbcType="VARCHAR" property="ATTRIBUTE5" />
+    <result column="CREATED_BY" jdbcType="DECIMAL" property="CREATED_BY" />
+    <result column="CREATION_DATE" jdbcType="DATE" property="CREATION_DATE" />
+    <result column="LAST_UPDATED_BY" jdbcType="DECIMAL" property="LAST_UPDATED_BY" />
+    <result column="LAST_UPDATE_DATE" jdbcType="DATE" property="LAST_UPDATE_DATE" />
+    <result column="SH_TMPLT_STATUS" jdbcType="CHAR" property="STATUS" />
+    <result column="NODE_STATUS" jdbcType="CHAR" property="NODE_STATUS" />
+<!--     <result column="TASK_EXE_CYCLE_VALUE" jdbcType="DECIMAL" property="TASK_EXE_CYCLE_VALUE" />
+    <result column="TASK_EXE_CYCLE_TYPE" jdbcType="VARCHAR" property="TASK_EXE_CYCLE_TYPE" />
+    <result column="TASK_EXE_DATE" jdbcType="DATE" property="TASK_EXE_DATE" />
+    <result column="NODE_STATUS" jdbcType="VARCHAR" property="WEEKDAY_VALUE" />
+    <result column="WORKDAY_EXE" jdbcType="VARCHAR" property="WORKDAY_EXE" />
+ -->  </resultMap>
+  <select id="selectByPrimaryKey" parameterClass="Long" resultMap="abatorgenerated_SysTaskAllResult">
+    select TASK_ID, TASK_NAME, IS_SEND_EMAIL, EMAIL_TITLE,
+      ENABLE_DATE, DISABLE_DATE, DESCRIPTION, ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4,
+      ATTRIBUTE5, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, SH_TMPLT_STATUS, NODE_STATUS
+      <!--TASK_EXE_CYCLE_VALUE , TASK_EXE_CYCLE_TYPE, TASK_EXE_DATE, WEEKDAY_VALUE, WORKDAY_EXE -->
+    from SYS_TASK_ALL
+    where TASK_ID = #TASK_ID#
+  </select>
+  <select id="getCount" parameterClass="com.notice.model.SysTaskAllExample" resultClass="java.lang.Integer">
+    select count(*) from SYS_TASK_ALL
+  </select>
+  <update id="updateTaskStatus" parameterClass="java.util.Map">
+  	update  sys_task_all t set t.SH_TMPLT_STATUS=#state# where t.task_id=#taskId#
+  </update>
+  <update id="updateTaskKey" parameterClass="java.util.Map">
+  	update  sys_task_all t set LAST_UPDATE_DATE = SYSDATE,t.ATTRIBUTE1=#key# where t.task_id=#taskId#
+  </update>
+<!--modify by fqh-->
+
+	<select id="selectBySql"  remapResults="true" parameterClass="java.lang.String">
+		<isNotEmpty property="sql">$sql$</isNotEmpty>
+	</select>
+  
+</sqlMap>
